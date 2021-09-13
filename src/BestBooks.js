@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from 'react-bootstrap/Card';
+import { Alert } from "react-bootstrap";
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -53,7 +54,8 @@ class BestBooks extends React.Component {
                     </Card.Body>
                 </Card>
                 :(
-              <h3>No Books Found :(</h3>
+              {alert("No Books Found ")}
+               :(
                   )
               </>
             );
