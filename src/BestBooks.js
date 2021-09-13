@@ -25,44 +25,38 @@ class BestBooks extends React.Component {
 
   render() {
 
-    // return(<p>test</p>)
+    return (
 
-    /* TODO: render user's books in a Carousel */
-    <div>
-     
-      {this.state.books.length > 0 && (
-        <>
-         
-          {this.state.books.map((book) => {
-            return (
-              <>
-                
-                <Card style={{ width: "18rem" }}>
-                  
-                  <Card.Body>
-                    
-                    <Card.Title>{book.title}</Card.Title>
-                    <Card.Text> {book.description} </Card.Text>
-                    <Card.Text> {book.status} </Card.Text>
-                    <Card.Text> {book.email} </Card.Text> 
+      /* TODO: render user's books in a Carousel */
+      <div>
+        <h1>Test</h1>
+        {this.state.books.length > 0 && (
+          <>
 
-                    {/* <Card.Title>t</Card.Title>
-                    <Card.Text> e </Card.Text>
-                    <Card.Text> s </Card.Text>
-                    <Card.Text> t </Card.Text>  */}
+            {this.state.books.map((book) => {
+              return (
+                <>
 
+                  <Card style={{ width: "18rem" }}>
+
+                    <Card.Body>
+                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Text> {book.description} </Card.Text>
+                      <Card.Text> {book.status} </Card.Text>
+                      <Card.Text> {book.email} </Card.Text>
                     </Card.Body>
-                </Card>
-                :(
-              {alert("No Books Found ")}
-               :(
+
+                  </Card>
+                  {/* :(
+                  {alert("No Books Found ")}
+                  :( */}
                   )
-              </>
-            );
-          })}
-        </>
-      )}
-    </div>;
+                </>
+              );
+            })}
+          </>
+        )}
+      </div>);
   }
 }
 
