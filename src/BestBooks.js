@@ -3,6 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
+import UpdateBook from "./components/UpdateBook";
 
 
 // import { Alert } from "react-bootstrap";
@@ -22,6 +23,11 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       showModal: false,
+      showUpdateModal:false,
+
+      bookObjectDAta :{}
+      
+      
     };
   }
 
@@ -45,6 +51,27 @@ class BestBooks extends React.Component {
       showModal: !this.state.showModal,
     });
   }
+ 
+
+  // book object to pass to the component
+  closeUpdateModel = (bookObject) => {
+    this.setState({
+      showUpdateModal: !this.state.showUpdateModal,
+      // save the data come from map loop inside state
+      bookObjectDAta:bookObject
+    });
+  }
+
+
+  // test= () =>{
+  
+  // this.setState({
+  //   showUpdateModal:!this.state.showUpdateModal,
+
+
+  // });
+  // }
+
   
 
 
@@ -85,6 +112,44 @@ class BestBooks extends React.Component {
   };
 
 
+  handelUpdateModal = (event) => {
+    event.preventDefault();
+    const requestBody = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      status: event.target.status.value,
+      email: event.target.Email.value,
+      _id: this.state.bookObjectDAta._id,
+    };
+
+ axios.put(`${process.env.REACT_APP_API_URL}/book/${this.state.bookObjectDAta._id}`, requestBody).then((updatedBookObject) => {
+  const updateBookArray = this.state.books.map(book => {
+
+    if (book._id === this.state.bookObjectDAta._id){
+
+      book=updatedBookObject.data;
+
+      return book;
+    }
+
+
+    return book;
+  });
+
+  this.setState({
+    booksData: updateBookArray,
+    updatedBookObject: {}
+  })
+
+
+
+
+    this.closeUpdateModel();
+    }).catch(() => alert("something wrong"));
+
+  
+  }
+
 
   render() {
 
@@ -108,6 +173,28 @@ class BestBooks extends React.Component {
         }
 
 
+{/* {
+      this.state.showUpdateModal &&
+        
+          <UpdateBook
+          show={this.state.showUpdateModal}
+            />
+        } */}
+
+
+{
+          this.state.showUpdateModal &&
+          <>
+            <UpdateBook
+              show={this.state.showUpdateModal}
+              handelUpdateModal={this.handelUpdateModal}
+              closeUpdateModel={this.closeUpdateModel}
+              bookObjectDAta={this.state.bookObjectDAta}
+            />
+          </>
+        }
+
+
         {/* <h1>Test</h1> */}
         {this.state.books.length > 0 && (
           <>
@@ -126,9 +213,14 @@ class BestBooks extends React.Component {
                       <Button variant="dark" >
                         Delete
                       </Button>
-                      <Button variant="dark">
+                      {/* <Button variant="dark" 
+                      onClick= {  ()=> this.test} >
                         update
-                      </Button>
+                      </Button> */}
+
+                  <Button variant="dark"
+                   onClick={() => this.closeUpdateModel(book)}
+                   >Update Book</Button>
 
                     </Card.Body>
 
