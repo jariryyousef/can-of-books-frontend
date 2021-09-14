@@ -12,7 +12,7 @@ class Header extends React.Component {
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         <NavItem><Link to="/profile" className="nav-link">profile</Link></NavItem>
 
-      <LoginButton/>
+        <LoginButton/>
         {/* TODO: if the user is logged in, render a navigation link to profile page */}
 
         {/* TODO: if the user is logged in, render the `LogoutButton` */}
@@ -21,5 +21,4 @@ class Header extends React.Component {
     )
   }
 }
-
 export default Header;

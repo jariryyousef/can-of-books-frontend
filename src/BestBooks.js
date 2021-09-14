@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from 'react-bootstrap/Card';
-import { Alert } from "react-bootstrap";
+// import { Alert } from "react-bootstrap";
+import  Button  from "react-bootstrap/Button";
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class BestBooks extends React.Component {
 
   render() {
 
-    // return(<p>test</p>)
+    return(
 
     /* TODO: render user's books in a Carousel */
     <div>
@@ -36,8 +37,8 @@ class BestBooks extends React.Component {
           {this.state.books.map((book) => {
             return (
               <>
-                
-                <Card style={{ width: "18rem" }}>
+
+               <Card style={{ width: "18rem" }}>
                   
                   <Card.Body>
                     
@@ -46,6 +47,8 @@ class BestBooks extends React.Component {
                     <Card.Text> {book.status} </Card.Text>
                     <Card.Text> {book.email} </Card.Text> 
 
+                  <Button>update</Button>
+                  
                     {/* <Card.Title>t</Card.Title>
                     <Card.Text> e </Card.Text>
                     <Card.Text> s </Card.Text>
@@ -53,17 +56,18 @@ class BestBooks extends React.Component {
 
                     </Card.Body>
                 </Card>
-                :(
-              {alert("No Books Found ")}
-               :(
-                  )
+                
+              
+               
+                {/* {alert("No Books Found ")} */}
+                  
               </>
             );
           })}
         </>
       )}
-    </div>;
-  }
+     </div>
+    )}
 }
 
 export default BestBooks;
