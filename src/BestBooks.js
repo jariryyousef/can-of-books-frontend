@@ -27,6 +27,8 @@ class BestBooks extends React.Component {
 
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
 
+
+  //========================= this function calls the render fun. first then excutes.
   componentDidMount = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/book`)
@@ -38,12 +40,14 @@ class BestBooks extends React.Component {
 
 
   //======== add book function for modal:=============================
-
   showForm = () => {
     this.setState({
       showModal: !this.state.showModal,
     });
   }
+  
+
+
 
   //================== Form Submit:====================================
   formSubmit = (e) => {
@@ -53,17 +57,33 @@ class BestBooks extends React.Component {
       description: e.target.desc.value,
       status: e.target.status.value,
       email: e.target.email.value,
-    }
-    axios.post(`${process.env.REACT_APP_API_URL}/book`, requestBody).then((response) => {
-      this.state.books.push(response.data);  // to prevent data lose.
+    };
+    axios.post(`${process.env.REACT_APP_API_URL}/book`, requestBody).then((booksResponse) => {
+      this.state.books.push(booksResponse.data);  // to prevent data lose.
       this.setState({
-        books: response.data,
+        // books: response.data,
+        books: this.state.books
       });
       this.showForm();
-    });
-  }
+    }).catch(() => alert("an error has occurred, couldn't load data"));
+  };
 
-  //=======================================================================
+
+
+  //================================Delete Method=======================================
+  deleteHandler = (bookId) => {
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_URL}/book/${bookId}`)
+      .then((deleteResponse) => {
+        if (deleteResponse.data.deletedCount === 1) {
+          const alteredBooksArray = this.state.books.filter(
+            (book) => book._id !== bookId
+          );
+          this.setState({ Book: alteredBooksArray });
+        }
+      }).catch(() => alert("an error has occurred, couldn't load data"));
+  };
+
 
 
   render() {
@@ -73,16 +93,20 @@ class BestBooks extends React.Component {
 
       <div>
 
+
         <Button variant="dark" onClick={this.showForm}>
           Add a new book
         </Button>
 
 
-        <FormDialog
-          show={this.state.showModal}
-          handleClose={this.showForm}
-          formSubmit={this.formSubmit}
-        />
+        {this.state.showModal &&
+          <FormDialog
+            show={this.state.showModal}
+            handleClose={this.showForm}
+            formSubmit={this.formSubmit}
+          />
+        }
+
 
         {/* <h1>Test</h1> */}
         {this.state.books.length > 0 && (
@@ -99,6 +123,13 @@ class BestBooks extends React.Component {
                       <Card.Text> {book.description} </Card.Text>
                       <Card.Text> {book.status} </Card.Text>
                       <Card.Text> {book.email} </Card.Text>
+                      <Button variant="dark" >
+                        Delete
+                      </Button>
+                      <Button variant="dark">
+                        update
+                      </Button>
+
                     </Card.Body>
 
                   </Card>

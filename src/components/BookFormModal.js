@@ -13,7 +13,7 @@ class ModalForm extends React.Component {
             <div>
                 <Modal.Dialog show={this.props.show} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal title</Modal.Title>
+                        <Modal.Title>Add a new book</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
@@ -46,10 +46,7 @@ class ModalForm extends React.Component {
                         </Form>
                     </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button variant="secondary">Close</Button>
-                        <Button variant="primary">Save changes</Button>
-                    </Modal.Footer>
+                    
                 </Modal.Dialog>
             </div>
         )
