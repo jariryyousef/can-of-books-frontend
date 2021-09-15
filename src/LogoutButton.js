@@ -1,16 +1,31 @@
-import { Component } from "react";
-// import Button from 'react-bootstrap/Button'
+// import { Component } from "react";
+// // import Button from 'react-bootstrap/Button'
 
-class LogoutButton extends Component {
+// class LogoutButton extends Component {
 
-  render() {
-    return (
+//   render() {
+//     return (
       
-      <button onClick={this.props.onLogout}>
-        Log Out
-      </button>
-    );
-  }
+//       <button onClick={this.props.onLogout}>
+//         Log Out
+//       </button>
+//     );
+//   }
+// };
+
+// export default LogoutButton;
+
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const LogoutButton = () => {
+  const { logout } = useAuth0();
+
+  return (
+    <button onClick={() => logout({ returnTo: window.location.origin })}>
+      Log Out
+    </button>
+  );
 };
 
 export default LogoutButton;
